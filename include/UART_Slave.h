@@ -1,108 +1,97 @@
-// UART implementation for slave mode
-// Provides a simple interface to communicate with a master CYD ESP32 screen device using UART.
+// Description: UART Slave Header File
+// File Name: uart_slave.h
+// File Author: AINA FSVOUR OLALEKAN (BIGFAVOUR).
 
 #ifndef __UART_SLAVE
 #define __UART_SLAVE
-#include <Arduino.h>
 
-String incoming = ""; // Variable to store incoming data
-void uart_master_setup(); // Function to set up UART communication 
-bool parseMasterData(String data, float*values); // Function to parse incoming data
-void respondWithSix(float* inputs); // Function to respond with six values
-void uart_perform_function(); // Function to perform UART operations
+#include <i2c_variables.h>
+
+// === Constants ===
+#define NUM_THRESHOLDS 7
+#define INPUT_BUFFER_SIZE 64
+#define MSG_HEADER '#' // optional: use for identifying start of command
+#define MSG_TERMINATOR '\n'
+#define MASTER_BAUDRATE 115200
+#define SLAVE_BAUDRATE 9600
+
+// === Global Variables ===
+float masterValues[NUM_THRESHOLDS];
+float PowerValue, EnergyValue, CurrentValue, VoltageValue;
+float temperatureValue, humidityValue;
+bool DistanceLevelValue; // true = water level high, false = low
+
+
+
 
 
 void uart_master_setup() {
-    Serial.begin(9600); // Initialize UART communication at 115200 baud rate
-    delay(500); // Wait for the serial port to initialize
+  Serial.begin(MASTER_BAUDRATE);     // Debug monitor
+  Serial2.begin(SLAVE_BAUDRATE, SERIAL_8N1, 16, 17);  // RX=16, TX=17 (adjust pins if needed)
+
+  delay(2000);
+  Serial.println("Master Ready");
 }
-bool parseMasterData(String data, float*values)
+// === UART Read Function ===
+void uart_slave_read()
 {
-    const char* keys[] = {"temp", "humd", "power_cutoff"};
-    const int keycount = 3;
-    bool found[keycount] = {false, false, false}; // Array to track if keys are found
+    static String input = "";
 
-    int start = 0;
-    while (start < data.length())
-    {
-        int sep = data.indexOf(':', start);
-        if (sep == -1)  sep = data.length();
+    while (Serial.available()) {
+        char c = Serial.read();
 
-        String pair = data.substring(start, sep);
-        int equal = pair.indexOf('=');
+        // Optional: skip garbage before the start character
+        if (input.length() == 0 && c != MSG_HEADER) {
+            continue;
+        }
 
-        if (equal != -1)
-        {
-            String key = pair.substring(0, equal);
-            String value = pair.substring(equal + 1);
+        input += c;
 
-            for (int i = 0; i < keycount; i++)
-            {
-                if (key == keys[i])
-                {
-                    values[i] = value.toFloat();
-                    found[i] = true;
-                    break;
-                }
+        // Only process when newline is received
+        if (c == MSG_TERMINATOR) {
+            input.trim();
+
+            // Strip off header if used
+            if (input.charAt(0) == MSG_HEADER) {
+                input.remove(0, 1);  // remove header
             }
-        }
-        start = sep + 1;
-    }
-        // Check if all keys were found
-    for (int i = 0; i < keycount; i++)
-    {
-        if (!found[i])
-        {
-            return false; // Return false if any key is not found
+
+            char inputBuffer[INPUT_BUFFER_SIZE];
+            input.toCharArray(inputBuffer, sizeof(inputBuffer));
+
+            char *token = strtok(inputBuffer, ",");
+            int idx = 0;
+            while (token != NULL && idx < NUM_THRESHOLDS) {
+                masterValues[idx++] = atof(token);
+                token = strtok(NULL, ",");
+            }
+
+            if (idx == NUM_THRESHOLDS) {
+                // Assign thresholds from master
+                PowerValue = masterValues[0];
+                EnergyValue= masterValues[1];
+                CurrentValue = masterValues[2];
+                VoltageValue= masterValues[3];
+                temperatureValue = masterValues[4];
+                humidityValue = masterValues[5];
+                DistanceLevelValue= (bool)masterValues[6];
+                
+
+                String message = "#" + String(PowerThreshold) + "," + String(DistanceThreshold) + "," + String(TempThreshold) + "\n";
+                Serial2.print(message);
+                Serial.print("Sent to master: ");
+                Serial.println(message);
+           
+            input = ""; // reset input buffer
         }
     }
 }
-void respondWithSix(float* inputs) {
-    float out[6] = {
-        inputs[0] * 0.5,
-        inputs[1] * 0.8,
-        inputs[2] * 1.2,
-        inputs[0] + inputs[1],
-        inputs[1] + inputs[2],
-        inputs[2] - inputs[0]
-    };
 
-    const char* keys[6] = {
-        "scaled1", "scaled2", "scaled3", "sum1", "sum2", "diff"
-    };
-
-    String response = "";
-    for (int i = 0; i < 6; i++) {
-        response += keys[i];
-        response += "=";
-        response += String(out[i], 2);
-        if (i < 5) response += ";";
-    }
-
-    Serial.println(response);
-    Serial.flush(); // Ensure data is pushed out completely
 }
-void uart_perform_function() {
-   while(Serial.available())
-   {
-    char c = Serial.read();
 
-    if (c == '\n'){
-        incoming.trim(); // Remove any leading or trailing whitespace
-        Serial.println("Received: " + incoming); // Print the received data
 
-        float values[3] = {0.0, 0.0, 0.0}; // Array to store parsed values
-        if (parseMasterData(incoming, values)){
-            respondWithSix(values); // Call the function to respond with six values
-        }
 
-        incoming = ""; // Clear the incoming string for the next message
-    }
-    else{
-        incoming += c; // Append the character to the incoming string
-    }
-   }
-}
 
 
 #endif // __UART_SLAVE
+

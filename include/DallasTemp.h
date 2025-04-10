@@ -6,7 +6,7 @@
 #include <OneWire.h>
 #include <DallasTemperature.h>
 #include <Arduino.h>
-#define ONE_WIRE_BUS 2 // Pin where the DS18B20 is connected
+#define ONE_WIRE_BUS 2 // Pin where the DS18B20 is connected with a 10k pull-up resistor
 
 float tempValue; // Variable to store temperature value
 

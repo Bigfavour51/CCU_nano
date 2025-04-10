@@ -32,4 +32,13 @@ int getDistance() {
  
 }
 
+bool UnitFillChecker()
+{
+   if (distanceValue < 10) { // Check if the distance is less than 10 cm
+      return true; // Return true if the unit is filled
+   } else {
+      return false; // Return false if the unit is not filled
+   }
+}
+
 #endif // __ULTRASENSOR
