@@ -15,11 +15,6 @@
 void loadControlSetup() {
     pinMode(LOAD_PIN, OUTPUT); // Set the load pin as output
     digitalWrite(LOAD_PIN, LOAD_OFF); // Initialize the load to OFF state
-    delay(1000);
-    digitalWrite(LOAD_PIN, LOAD_ON); // Turn on the load for a short duration
-    delay(LOAD_ON_DELAY); // Wait for the defined ON delay
-    digitalWrite(LOAD_PIN, LOAD_OFF); // Initialize the load to OFF state
-   
 }
 
 // Function to turn on the load
@@ -33,6 +28,9 @@ void turnOffLoad() {
 
 void loadControl() {
     // Implementation to check the distance  or temperature level and turn on/off the load accordingly
+    // if the temperature is above the threshold or the distance is below the threshold, turn on the load
+
+
    
 }
 

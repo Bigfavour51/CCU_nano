@@ -9,7 +9,7 @@
 
 #include <Arduino.h>
 #include <DallasTemp.h>
-#include <Ultrasensor.h>
+#include "Ultrasensor.h"
 #include <EnergyMeter.h>
 #include <DHTsensor.h>
 #include <LoadControl.h>
@@ -75,7 +75,7 @@ void uart_master_send()
 
             
 
-            input = ""; // reset input buffer
+            // input = ""; // reset input buffer
             }
         }
     }
