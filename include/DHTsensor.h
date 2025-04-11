@@ -13,10 +13,13 @@ DHT dht(DHTPIN, DHTTYPE);
 
 // DHT sensor values
 float HumdValue;
+float TempV;
+
 
 
 void dht_humd_setup();
 float getHumd();
+float getTemp();
 
 
 
@@ -35,5 +38,17 @@ float getHumd()
     return 0.00;
    }
 }
+
+float getTemp()
+{
+   if (!isnan(TempV = dht.readTemperature())) {
+    return TempV = dht.readTemperature();
+   }
+   else {
+    return 0.00;
+   }
+}
+
+
 
 #endif

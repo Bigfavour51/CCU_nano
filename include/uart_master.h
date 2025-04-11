@@ -31,8 +31,8 @@ bool DistanceLevelValue; // true = water level high, false = low
 void uart_master_send()
 {
     String response = String('#') + "," + String(power) + "," + String(energy) + "," + String(current) + "," +
-                      String(voltage) + "," + String(getTemperature()) + "," +
-                      String(getHumd()) + "," + String(UnitFillChecker()) + "\n";
+                      String(voltage) + "," + String(getTemp()) + "," +
+                      String(getHumd()) + "," + String(UnitFillChecker()) + String("\n");
 
     Serial.print(response); // send to slave
 

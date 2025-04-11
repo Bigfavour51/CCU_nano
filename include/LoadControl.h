@@ -1,6 +1,7 @@
 #ifndef __LOADCONTROL_H__
 #define __LOADCONTROL_H__
 #include <Arduino.h>
+#include <uart_master.h>
 
 #define LOAD_PIN 12 // Pin to control the load (relay or switch)
 #define LOAD_ON LOW // Define the state to turn on the load
@@ -29,5 +30,10 @@ void turnOffLoad() {
     digitalWrite(LOAD_PIN, LOAD_OFF); // Set the load pin to LOW
 }   
 
+
+void loadControl() {
+    // Implementation to check the distance  or temperature level and turn on/off the load accordingly
+   
+}
 
 #endif

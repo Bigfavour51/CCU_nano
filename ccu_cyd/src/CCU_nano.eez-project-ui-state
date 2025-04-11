@@ -198,6 +198,7 @@
               "type": "tabset",
               "id": "EDITORS",
               "weight": 66.253591954023,
+              "selected": 1,
               "enableDeleteWhenEmpty": false,
               "enableClose": false,
               "children": [
@@ -1125,9 +1126,7 @@
     "[CCU_nano.eez-project]:/userPages/2[flow-state]": {
       "selection": {
         "0": {
-          "6": {
-            "$selected": true
-          }
+          "6": {}
         }
       },
       "transform": {
