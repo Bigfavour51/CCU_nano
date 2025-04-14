@@ -9,7 +9,7 @@
 void systemcontrol()
 {
     // Check if the distance is below the threshold
-    if (UnitFillChecker() == true && getTemp() >= TempThreshold) {
+    if (UnitFillChecker == true && getTemp() == TempThreshold) {
         turnOffLoad(); // Turn on the load if the unit is filled or temperature is above threshold
     } 
     else{turnOnLoad();
