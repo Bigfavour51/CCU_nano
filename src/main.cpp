@@ -9,7 +9,7 @@
 void systemcontrol()
 {
     // Check if the distance is below the threshold
-    if (UnitFillChecker == true && getTemp() == TempThreshold) {
+    if (UnitFillChecker == true && getTemperature() <= TempThreshold) {
         turnOffLoad(); // Turn on the load if the unit is filled or temperature is above threshold
     } 
     else{turnOnLoad();
@@ -29,7 +29,7 @@ void loop()
     // Read data from the master device
     updateEnergyReadings();
     uart_master_send(); // send master data to slave
-    systemcontrol(); // Control the load based on sensor readings
-    delay(2000); // Delay for 1 second before next read
+   systemcontrol(); // Control the load based on sensor readings
+    delay(500); // Delay for 1 second before next read
 }
 

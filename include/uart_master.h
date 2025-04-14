@@ -7,12 +7,12 @@
 #ifndef __UART_MASTER
 #define __UART_MASTER
 
-#include <Arduino.h>
-#include <DallasTemp.h>
-#include <Ultrasensor.h>
-#include <EnergyMeter.h>
-#include <DHTsensor.h>
-#include <LoadControl.h>
+
+#include "DallasTemp.h"
+#include "Ultrasensor.h"
+#include "EnergyMeter.h"
+#include "DHTsensor.h"
+#include "LoadControl.h"
 
 // === Constants ===
 #define NUM_THRESHOLDS 3
@@ -26,17 +26,20 @@ float slaveValues[NUM_THRESHOLDS];
 
 float PowerThreshold, DistanceThreshold, TempThreshold;
 bool DistanceLevelValue; // true = water level high, false = low
+bool UnitFillChecker;
+
+
 
 // === UART Read Function ===
 void uart_master_send()
 {
     String response = String('#') + "," + String(power) + "," + String(energy) + "," + String(current) + "," +
-                      String(voltage) + "," + String(getTemp()) + "," +
-                      String(getHumd()) + "," + String(UnitFillChecker) + String("\n");
+                      String(voltage) + "," + String(getTemperature()) + "," +
+                      String(getHumd()) + "," + String(UnitFillChecker = (getDistance() <= DistanceThreshold) ? true : false) + String("\n");
 
     Serial.print(response); // send to slave
 
-    static String input = "";
+    String input = "";
 
     while (Serial.available()) {
         char c = Serial.read();
@@ -73,13 +76,13 @@ void uart_master_send()
                 DistanceThreshold = slaveValues[1];
                 TempThreshold = slaveValues[2];
 
-            
-
             // input = ""; // reset input buffer
             }
         }
     }
 }
+
+
 
 
 #endif // __UART_MASTER

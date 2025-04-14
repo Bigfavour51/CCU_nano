@@ -4,8 +4,8 @@
 #include <uart_master.h>
 
 #define LOAD_PIN 12 // Pin to control the load (relay or switch)
-#define LOAD_ON LOW // Define the state to turn on the load
-#define LOAD_OFF HIGH // Define the state to turn off the load
+#define LOAD_ON HIGH // Define the state to turn on the load
+#define LOAD_OFF LOW // Define the state to turn off the load
 #define LOAD_ON_DELAY 4000 // Delay in milliseconds before turning off the load
 #define LOAD_OFF_DELAY 1000 // Delay in milliseconds before turning on the load
 
