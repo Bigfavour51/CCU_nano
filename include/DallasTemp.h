@@ -23,5 +23,6 @@ float getTemperature() {
     return tempValue; // Return the temperature value
 }
 
+float i2c_tempValue = getTemperature(); // Variable to store temperature value for I2C communication
 
 #endif // __DALLASTEMP_H__
