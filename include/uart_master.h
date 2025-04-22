@@ -1,6 +1,4 @@
-// Description: UART Master Header File
-// File Name: uart_master.h
-// File Author: AINA FAVOUR OLALEKAN (BIGFAVOUR)
+
 
 
 
