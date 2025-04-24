@@ -33,6 +33,6 @@ int getDistance() {
  
 }
 
-
+// float distanceCM = getDistance();
 
 #endif // __ULTRASENSOR

@@ -18,17 +18,20 @@ void i2c_send_data() {
 
     // Send the float as 4 bytes
     Wire.write((byte*)&power, sizeof(power));
-    Wire.write((byte*)&energy, sizeof(energy));
+    float i2c_tempValue_dht = getTemp(); // Get the temperature value for I2C communication
+    Wire.write((byte*)&i2c_tempValue_dht, sizeof(i2c_tempValue_dht));
     Wire.write((byte*)&current, sizeof(current));
     Wire.write((byte*)&voltage, sizeof(voltage));
+    float i2c_tempValue = getTemperature(); // Get the temperature value for I2C communication
     Wire.write((byte*)&i2c_tempValue, sizeof(i2c_tempValue));
+    float i2c_HumdValue = getHumd(); // Get the humidity value for I2C communication
     Wire.write((byte*)&i2c_HumdValue, sizeof(i2c_HumdValue));
-    Wire.write((byte*)&UnitFillChecker, sizeof(UnitFillChecker)); // Send the boolean value    
-
+    Wire.write((byte*)&UnitFillChecker, sizeof(UnitFillChecker)); // Send the boolean value  
+   
     Wire.endTransmission(); // End I2C transmission
 
    
 }
 
 
-#endif // __I2C_CLOUDSEND_H__
+#endif // __I2C_CLOUDSEND_H

@@ -50,6 +50,6 @@ float getTemp()
 }
 
 float i2c_HumdValue = getHumd(); // Variable to store humidity value for I2C communication
-
+// float i2c_TempValue = getTemp(); // Variable to store temperature value for I2C communication
 
 #endif

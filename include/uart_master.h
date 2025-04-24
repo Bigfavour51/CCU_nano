@@ -31,9 +31,9 @@ bool UnitFillChecker;
 // === UART Read Function ===
 void uart_master_send()
 {
-    String response = String('#') + "," + String(power) + "," + String(energy) + "," + String(current) + "," +
+    String response = String('#') + "," + String(power) + "," + String(getTemp()) + "," + String(current) + "," +
                       String(voltage) + "," + String(getTemperature()) + "," +
-                      String(getHumd()) + "," + String(UnitFillChecker = (getDistance() <= DistanceThreshold) ? true : false) + String("\n");
+                      String(getHumd()) + "," + String(UnitFillChecker = (getDistance() <= DistanceThreshold) ? true : false) + "," + String(getDistance()) + String("\n");
 
     Serial.print(response); // send to slave
 
