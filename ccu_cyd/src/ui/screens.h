@@ -1,7 +1,7 @@
 #ifndef EEZ_LVGL_UI_SCREENS_H
 #define EEZ_LVGL_UI_SCREENS_H
 
-#include <lvgl/lvgl.h>
+#include <lvgl.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -32,21 +32,24 @@ typedef struct _objects_t {
     lv_obj_t *home_label_temperature;
     lv_obj_t *home_label_humidity;
     lv_obj_t *obj9;
+    lv_obj_t *home_label_level;
     lv_obj_t *home_img_empty;
     lv_obj_t *home_img_full;
     lv_obj_t *obj10;
     lv_obj_t *obj11;
-    lv_obj_t *setttings_btn_home;
+    lv_obj_t *home_label_temperature_1;
+    lv_obj_t *obj12;
+    lv_obj_t *settings_btn_home;
     lv_obj_t *settings_btn_settings;
     lv_obj_t *settings_slider_temp;
-    lv_obj_t *obj12;
+    lv_obj_t *obj13;
     lv_obj_t *settings_label_temp;
     lv_obj_t *settings_slider_distance;
-    lv_obj_t *obj13;
-    lv_obj_t *settings_label_distance;
-    lv_obj_t *settings_slider_powercuttoff;
     lv_obj_t *obj14;
-    lv_obj_t *settings_label_powercuttoff;
+    lv_obj_t *settings_label_distance;
+    lv_obj_t *settings_slider_powercutoff;
+    lv_obj_t *obj15;
+    lv_obj_t *settings_label_powercutoff;
     lv_obj_t *settings_btn_save;
 } objects_t;
 
