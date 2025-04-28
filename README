@@ -1,39 +1,56 @@
+# CCU_nano: Intelligent Cooling Control Unit
 
-This directory is intended for project header files.
+**CCU_nano** is a sophisticated embedded system designed to monitor and control cooling devices, such as refrigerators. It measures critical parameters like device temperature, power consumption (voltage, current, power), 
+and ambient room conditions (temperature and humidity). Equipped with a CYD display screen, the system offers an intuitive user interface built using EEZ Studio, allowing users to view sensor readings and set threshold values to automate 
+load control via a relay mechanism.
 
-A header file is a file containing C declarations and macro definitions
-to be shared between several project source files. You request the use of a
-header file in your project source file (C, C++, etc) located in `src` folder
-by including it, with the C preprocessing directive `#include'.
+## Table of Contents
 
-```src/main.c
+- [Project Overview](#project-overview)
+- [Features](#features)
+- [System Architecture](#system-architecture)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Project Structure](#project-structure)
+- [Contributing](#contributing)
+- [License](#license)
 
-#include "header.h"
+## Project Overview
 
-int main (void)
-{
- ...
-}
-```
+The **CCU_nano** project aims to enhance the efficiency and safety of cooling devices by providing real-time monitoring and control. By analyzing temperature and power consumption metrics, 
+the system can make informed decisions to activate or deactivate the cooling load, ensuring optimal performance and energy savings.
 
-Including a header file produces the same results as copying the header file
-into each source file that needs it. Such copying would be time-consuming
-and error-prone. With a header file, the related declarations appear
-in only one place. If they need to be changed, they can be changed in one
-place, and programs that include the header file will automatically use the
-new version when next recompiled. The header file eliminates the labor of
-finding and changing all the copies as well as the risk that a failure to
-find one copy will result in inconsistencies within a program.
+## Features
 
-In C, the usual convention is to give header files names that end with `.h'.
-It is most portable to use only letters, digits, dashes, and underscores in
-header file names, and at most one dot.
+- **Comprehensive Monitoring**: Tracks device temperature, voltage, current, power consumption, and ambient room conditions.
+- **User-Friendly Interface**: CYD display with EEZ Studio-designed UI for real-time data visualization and user interaction.
+- **Automated Control**: Relay mechanism triggers based on user-defined thresholds for temperature and power consumption.
+- **Data Logging**: Records historical data for analysis and troubleshooting.
+- **Modular Design**: Easily adaptable to various cooling devices and environments.
 
-Read more about using header files in official GCC documentation:
+## System Architecture
 
-* Include Syntax
-* Include Operation
-* Once-Only Headers
-* Computed Includes
+The system comprises the following components:
 
-https://gcc.gnu.org/onlinedocs/cpp/Header-Files.html
+- **Sensors**:
+  - Temperature sensor for the cooling device.
+  - Voltage and current sensors to monitor power consumption.
+  - Ambient temperature and humidity sensor for room conditions.
+- **Microcontroller**: ESP32 for processing sensor data and controlling the relay.
+- **Display**: CYD screen with UI developed in EEZ Studio.
+- **Relay Module**: Controls the power supply to the cooling device based on sensor inputs and user-defined thresholds.
+
+## Installation
+
+### Prerequisites
+
+- [PlatformIO](https://platformio.org/) installed in your development environment.
+- [Visual Studio Code](https://code.visualstudio.com/) with PlatformIO extension (optional but recommended).
+
+### Steps
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/Bigfavour51/CCU_nano.git
+   cd CCU_nano
